@@ -5,6 +5,25 @@ This guide outlines a workaround using exported CSV files to identify and bulk-r
 
 ---
 
+![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
+![IAM](https://img.shields.io/badge/IAM-deprovisioning-2B6CB0)
+
+```mermaid
+flowchart LR
+    A["HR / IdP export<br/>(AD, Workday, ADP)"] --> C["find_inactive_users.py"]
+    B["Kaltura KMC<br/>user export"] --> C
+    X["Protected accounts<br/>(admins, service)"] -.-> C
+    C --> D["bulk-user-deactivation-001.csv<br/>(100 users each)"]
+    D --> E["HR review"]
+    E --> F["Bulk upload in KMS / KMC"]
+```
+
+## 💡 Why This Matters
+
+Every former employee left in a SaaS app is an orphaned account: a security risk, a finding in an access review, and often a paid seat. When an app has no SCIM, offboarding usually gets skipped. This process makes it repeatable.
+
+---
+
 ## 📦 What's Included
 
 - ✅ Step-by-step instructions to export and cross-reference user data
