@@ -82,5 +82,28 @@ Using Excel or a script:
 
 ---
 
-## 📂 Suggested Repo Structure
+## ⚡ Automate Step 3 with the Script
 
+`find_inactive_users.py` does the cross-reference for you. It needs no dependencies beyond Python 3.10+.
+
+```bash
+python find_inactive_users.py active_users.csv kaltura_users.csv \
+    --active-col email --kaltura-col "User ID" \
+    --exclude protected_accounts.txt
+```
+
+- Compares IDs case-insensitively
+- Skips anything in `--exclude` (admins, service accounts, shared logins)
+- Splits output into 100-user upload files: `bulk-user-deactivation-001.csv`, `-002.csv`, ...
+- Prints a summary so you can sanity-check counts before uploading
+
+> ⚠️ Always review the output with HR before uploading. Deletion in Kaltura is not reversible.
+
+## 📂 Repo Structure
+
+```
+Kaltura-User-Cleanup/
+├── README.md
+├── find_inactive_users.py        # builds the deletion CSVs
+└── sample-bulk-deactivation.csv  # example of the Kaltura bulk format
+```
